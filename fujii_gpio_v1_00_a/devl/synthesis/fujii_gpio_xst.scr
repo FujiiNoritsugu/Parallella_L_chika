@@ -1,0 +1,12 @@
+run
+-opt_level 2
+-opt_mode speed
+-ifmt mixed
+-ifn "/home/fujii/parallella_hw_projects/parallella-hw/fpga/fujii_edk/MyProcessorIPLib/pcores/fujii_gpio_v1_00_a/devl/synthesis/fujii_gpio_xst.prj"
+-top fujii_gpio
+-p virtex6
+-ofn "/home/fujii/parallella_hw_projects/parallella-hw/fpga/fujii_edk/MyProcessorIPLib/pcores/fujii_gpio_v1_00_a/devl/synthesis/fujii_gpio_xst.ngc"
+-iobuf NO
+-rtlview YES
+-hierarchy_separator /
+-work_lib fujii_gpio_v1_00_a

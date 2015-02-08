@@ -1,0 +1,10 @@
+##############################################################################
+## Filename:          /home/fujii/parallella_hw_projects/parallella-hw/fpga/fujii_edk/MyProcessorIPLib/pcores/fujii_gpio_v1_00_a/data/fujii_gpio_v2_1_0.pao
+## Description:       Peripheral Analysis Order
+## Date:              Fri Jan 23 05:02:16 2015 (by Create and Import Peripheral Wizard)
+##############################################################################
+
+lib proc_common_v3_00_a  all 
+lib axi_lite_ipif_v1_01_a  all 
+lib fujii_gpio_v1_00_a user_logic verilog
+lib fujii_gpio_v1_00_a fujii_gpio vhdl

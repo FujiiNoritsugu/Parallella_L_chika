@@ -1,0 +1,10 @@
+-batch 
+-create fujii_gpio 
+-ver 1.00.a 
+-dir "/home/fujii/parallella_hw_projects/parallella-hw/fpga/fujii_edk/MyProcessorIPLib" 
+-lang verilog 
+-bus axi4lite s 
+-reg 8 
+-xps 
+-ise 
+-driver 
