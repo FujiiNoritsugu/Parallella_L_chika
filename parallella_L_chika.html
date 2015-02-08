@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+  </br>
+  </br>
+  </br>
+  </br>
+  </br>
+  <div width = "1000" align = "center">
+  <span>
+  <input type="radio" name="tika_type" value="point" checked="checked" onclick="sendTikaType('point');">point
+  <input type="radio" name="tika_type" value="seq" onclick="sendTikaType('seq');">sequence
+  <input type="radio" name="tika_type" value="all" onclick="sendTikaType('all');">all
+  </span></br>
+  <span>
+    <canvas id="blueLED" width="250" height="200"></canvas>
+    <canvas id="yellowLED" width="250" height="200"></canvas>
+    <canvas id="redLED" width="250" height="200"></canvas>
+  </span>
+  </div>
+<script src="/socket.io/socket.io.js"></script>
+    <script>
+      var red_canvas = document.getElementById('redLED');
+      var red_context = red_canvas.getContext('2d');
+      var red_centerX = red_canvas.width / 2;
+      var red_centerY = red_canvas.height / 2;
+      var radius = 70;
+
+      red_context.beginPath();
+      red_context.arc(red_centerX, red_centerY, radius, 0, 2 * Math.PI, false);
+      red_context.fillStyle = 'white';
+      red_context.fill();
+      red_context.lineWidth = 5;
+      red_context.strokeStyle = '#003300';
+      red_context.stroke();
+
+      var yellow_canvas = document.getElementById('yellowLED');
+      var yellow_context = yellow_canvas.getContext('2d');
+      var yellow_centerX = yellow_canvas.width / 2;
+      var yellow_centerY = yellow_canvas.height / 2;
+      var radius = 70;
+
+      yellow_context.beginPath();
+      yellow_context.arc(yellow_centerX, yellow_centerY, radius, 0, 2 * Math.PI, false);
+      yellow_context.fillStyle = 'white';
+      yellow_context.fill();
+      yellow_context.lineWidth = 5;
+      yellow_context.strokeStyle = '#003300';
+      yellow_context.stroke();
+
+      var blue_canvas = document.getElementById('blueLED');
+      var blue_context = blue_canvas.getContext('2d');
+      var blue_centerX = blue_canvas.width / 2;
+      var blue_centerY = blue_canvas.height / 2;
+      var radius = 70;
+
+      blue_context.beginPath();
+      blue_context.arc(blue_centerX, blue_centerY, radius, 0, 2 * Math.PI, false);
+      blue_context.fillStyle = 'white';
+      blue_context.fill();
+      blue_context.lineWidth = 5;
+      blue_context.strokeStyle = '#003300';
+      blue_context.stroke();
+
+try{
+var socket = io.connect('http://192.168.1.6:8124/');
+
+socket.send("point");
+
+socket.on('message', onMessage);
+
+function onMessage (message){
+
+	try{
+	//alert("message" + message);
+		var status = JSON.parse(message);
+	//alert("red = " + status.red);
+	//alert("yellow = " + status.yellow);
+	//alert("blue = " + status.blue);
+		var red_color = 'white';
+		var yellow_color = 'white';
+		var blue_color = 'white';
+		
+		if(status.red){red_color = 'red';}
+		if(status.yellow){yellow_color = 'yellow';}
+		if(status.blue){blue_color = 'blue';}
+		
+		red_context.fillStyle = red_color;
+		yellow_context.fillStyle = yellow_color;
+		blue_context.fillStyle = blue_color;
+		
+		redrawContext(red_color, yellow_color, blue_color);
+
+	}catch(e){
+		alert(e);
+	}
+}
+} catch(e){
+	alert(e);
+}
+
+function redrawContext(red_color, yellow_color, blue_color){
+      red_context.beginPath();
+      red_context.arc(red_centerX, red_centerY, radius, 0, 2 * Math.PI, false);
+      red_context.fillStyle = red_color;
+      red_context.fill();
+      red_context.lineWidth = 5;
+      red_context.strokeStyle = '#003300';
+      red_context.stroke();
+
+      yellow_context.beginPath();
+      yellow_context.arc(yellow_centerX, yellow_centerY, radius, 0, 2 * Math.PI, false);
+      yellow_context.fillStyle = yellow_color;
+      yellow_context.fill();
+      yellow_context.lineWidth = 5;
+      yellow_context.strokeStyle = '#003300';
+      yellow_context.stroke();
+
+      blue_context.beginPath();
+      blue_context.arc(blue_centerX, blue_centerY, radius, 0, 2 * Math.PI, false);
+      blue_context.fillStyle = blue_color;
+      blue_context.fill();
+      blue_context.lineWidth = 5;
+      blue_context.strokeStyle = '#003300';
+      blue_context.stroke();
+
+}
+
+function sendTikaType(tika_type){
+	if(socket != null){
+		socket.send(tika_type);
+	}
+}
+    </script>
+  </body>
+</html>
